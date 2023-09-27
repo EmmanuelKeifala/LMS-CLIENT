@@ -16,6 +16,15 @@
   }
 }
 
+input::--wekit-outer-spin-button,
+input::--webkit-inner-spin-button {
+  --wekbit-appearance: none
+}
+
+input[type="number"] {
+  --moz-appearance: textfield;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
 }
@@ -35,4 +44,37 @@ body {
   50% {
     background-color: hsla(0, 0%, 100%, 0);
   }
+}
+
+/* Define the shake animation */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    /* Initial position */
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+    /* Move left */
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+    /* Move right */
+  }
+}
+
+/* Apply the shake animation to an element */
+.shake {
+  animation: shake 0.8s ease;
+  /* Adjust the duration and easing as needed */
 }
