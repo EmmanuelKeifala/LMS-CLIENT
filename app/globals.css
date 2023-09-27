@@ -21,34 +21,18 @@ body {
 }
 
 .hero-animation {
-  background-image: linear-gradient(147.92deg, hsla(239, 76%, 53%, 0.456)10.41%, hsla(0, 0%, 100%, 0) 89.35%);
-  animation: changeBackgroundColor 8s infinite alternate;
+  background-image: linear-gradient(147.92deg, hsla(239, 76%, 53%, 0.456) 10.41%, hsla(0, 0%, 100%, 0) 89.35%);
+  animation: changeBackgroundColor 8s infinite;
 }
 
 @keyframes changeBackgroundColor {
 
   0%,
   100% {
-    opacity: 1;
-  }
-
-  16.7% {
-    opacity: 0.9;
-  }
-
-  33.33% {
-    opacity: 0.8;
+    background-color: hsla(239, 76%, 53%, 0.456);
   }
 
   50% {
-    opacity: 0.6;
-  }
-
-  66.67% {
-    opacity: 0.5;
-  }
-
-  83.33% {
-    opacity: 0.4;
+    background-color: hsla(0, 0%, 100%, 0);
   }
 }
