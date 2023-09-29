@@ -1,11 +1,9 @@
 import {redirect} from 'next/navigation';
-import userAuth from './userAuth';
+import UserAuth from './userAuth';
 interface ProtectedProps {
   children: React.ReactNode;
 }
 export default function Protected({children}: ProtectedProps) {
-  const isAuthenticated = userAuth();
-  if (!isAuthenticated) {
-    redirect('/login');
-  }
+  const isAuthenticated = UserAuth();
+  return isAuthenticated ? children : redirect('/');
 }
