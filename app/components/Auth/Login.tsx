@@ -98,7 +98,7 @@ const Login: FC<Props> = ({setRoute}) => {
           <FcGoogle size={30} className="cursor-pointer mr-2" />
           <AiFillGithub size={30} className="cursor-pointer" />
         </div>
-        <h5 className="text-center pt-4 font-Poppins text-[14px]">
+        <h5 className="dark:text-white text-center pt-4 font-Poppins text-[14px]">
           Don't have an account?{' '}
           <span
             className="text-[#2190ff] cursor-pointer pl-1"
