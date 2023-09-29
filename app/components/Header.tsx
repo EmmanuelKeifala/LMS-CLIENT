@@ -31,10 +31,6 @@ const Header: FC<Props> = ({activeItem, setOpen, route, setRoute, open}) => {
   const [openSlider, setOpenSlider] = useState(false);
   const {data} = useSession();
   const [socialAuth, {isSuccess, error}] = useSocialAuthMutation();
-  const [logout, setLogout] = useState(false);
-  const {} = useLogOutQuery(undefined, {
-    skip: !logout ? true : false,
-  });
   useEffect(() => {
     if (!user) {
       if (data) {
@@ -45,19 +41,15 @@ const Header: FC<Props> = ({activeItem, setOpen, route, setRoute, open}) => {
         });
       }
     }
-    if (data === null) {
-      if (isSuccess) {
-        toast.success('Login Successfully');
-      }
+    if (isSuccess) {
+      toast.success('Login Successfully');
     }
+
     if (error) {
       if ('data' in error) {
         const errorData = error as any;
         toast.error(errorData.data.message);
       }
-    }
-    if (data === null) {
-      setLogout(true);
     }
   }, [data, error, isSuccess, socialAuth, user]);
 
