@@ -11,7 +11,7 @@ const Page: FC<Props> = props => {
 
   const [route, setRoute] = useState('Login');
   return (
-    <div>
+    <>
       <Heading
         title="ELearning"
         description="This is a platform for students to learn and develop skills"
@@ -25,7 +25,7 @@ const Page: FC<Props> = props => {
         route={route}
       />
       <Hero />
-    </div>
+    </>
   );
 };
 
