@@ -3,8 +3,12 @@ import React, {FC, useState, useEffect} from 'react';
 import avatarDefault from '../../../public/assets/avatar.png';
 import {AiOutlineCamera} from 'react-icons/ai';
 import {styles} from '../styles/style';
-import {useUpdateAvatarMutation} from '@/redux/features/user/user.api';
+import {
+  useUpdateAvatarMutation,
+  useEditProfileMutation,
+} from '@/redux/features/user/user.api';
 import {useLoadUserQuery} from '@/redux/features/api/apiSlice';
+import toast from 'react-hot-toast';
 
 type Props = {
   avatar: string | null;
@@ -14,6 +18,8 @@ const ProfileInfo: FC<Props> = ({avatar, user}) => {
   console.log('User: ', user);
   const [name, setName] = useState(user.name);
   const [updateAvatar, {isSuccess, error}] = useUpdateAvatarMutation();
+  const [editProfile, {isSuccess: success, error: updateError}] =
+    useEditProfileMutation();
   const [loadUser, setLoadUser] = useState(false);
   const {} = useLoadUserQuery(undefined, {
     skip: loadUser ? false : true,
@@ -29,17 +35,23 @@ const ProfileInfo: FC<Props> = ({avatar, user}) => {
     fileReader.readAsDataURL(e.target.files[0]);
   };
   const handleSubmit = async (e: any) => {
-    console.log('second');
+    e.preventDefault();
+    if (name !== '') {
+      await editProfile({name, email: user.email});
+    }
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || success) {
       setLoadUser(true);
     }
-    if (error) {
+    if (error || updateError) {
       console.log(error);
     }
-  }, [isSuccess, error]);
+    if (isSuccess || success) {
+      toast.success('Profile updated Successfully');
+    }
+  }, [isSuccess, error, success, updateError]);
   return (
     <>
       <div className="w-full flex justify-center">
@@ -94,7 +106,7 @@ const ProfileInfo: FC<Props> = ({avatar, user}) => {
             </div>
             <input
               type="submit"
-              className={`w-full 800px:w-[250px] h-[40px] border border-[#37a39a] text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer`}
+              className={`w-full 800px:w-[95%] h-[40px] border border-[#37a39a] text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer`}
               value="Update"
             />
           </div>
