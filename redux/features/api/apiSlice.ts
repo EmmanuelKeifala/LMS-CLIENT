@@ -5,7 +5,15 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_SERVER_URI,
   }),
-  endpoints: buffer => ({}),
+  endpoints: builder => ({
+    refreshToken: builder.query({
+      query: data => ({
+        url: '/refresh-token',
+        method: 'GET',
+        credentials: 'include' as const,
+      }),
+    }),
+  }),
 });
 
-export const {} = apiSlice;
+export const {useRefreshTokenQuery} = apiSlice;
