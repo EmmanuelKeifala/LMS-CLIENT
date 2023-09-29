@@ -1,27 +1,53 @@
 import Image from 'next/image';
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import avatarDefault from '../../../public/assets/avatar.png';
 import {AiOutlineCamera} from 'react-icons/ai';
 import {styles} from '../styles/style';
+import {useUpdateAvatarMutation} from '@/redux/features/user/user.api';
+import {useLoadUserQuery} from '@/redux/features/api/apiSlice';
 
 type Props = {
   avatar: string | null;
   user: any;
 };
 const ProfileInfo: FC<Props> = ({avatar, user}) => {
+  console.log('User: ', user);
   const [name, setName] = useState(user.name);
+  const [updateAvatar, {isSuccess, error}] = useUpdateAvatarMutation();
+  const [loadUser, setLoadUser] = useState(false);
+  const {} = useLoadUserQuery(undefined, {
+    skip: loadUser ? false : true,
+  });
   const imageHandler = async (e: any) => {
-    console.log('first');
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      if (fileReader.readyState === 2) {
+        const avatar = fileReader.result;
+        updateAvatar(avatar);
+      }
+    };
+    fileReader.readAsDataURL(e.target.files[0]);
   };
   const handleSubmit = async (e: any) => {
     console.log('second');
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setLoadUser(true);
+    }
+    if (error) {
+      console.log(error);
+    }
+  }, [isSuccess, error]);
   return (
     <>
       <div className="w-full flex justify-center">
         <div className="relative">
           <Image
-            src={user.avatar || avatar ? user.avatar : avatarDefault}
+            width={120}
+            height={120}
+            src={user.avatar || avatar ? user.avatar.url : avatarDefault}
             className="w-[120px] h-[120px] border-[3px] border-[#37a39a] cursor-pointer rounded-full"
             alt="avatar"
           />
