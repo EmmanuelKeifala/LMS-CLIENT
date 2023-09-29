@@ -47,7 +47,7 @@ const Login: FC<Props> = ({setRoute, setOpen}) => {
         toast.error(errorData.data.message);
       }
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, error, setOpen]);
 
   const {errors, touched, handleSubmit, values, handleChange} = formik;
   return (
@@ -115,7 +115,7 @@ const Login: FC<Props> = ({setRoute, setOpen}) => {
           <AiFillGithub size={30} className="cursor-pointer" />
         </div>
         <h5 className="dark:text-white text-center pt-4 font-Poppins text-[14px]">
-          Don't have an account?{' '}
+          Dont have an account?{' '}
           <span
             className="text-[#2190ff] cursor-pointer pl-1"
             onClick={() => setRoute('Sign-Up')}>
