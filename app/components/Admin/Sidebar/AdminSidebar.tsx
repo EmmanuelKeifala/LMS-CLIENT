@@ -38,6 +38,7 @@ const Item: FC<itemProps> = ({title, to, icon, selected, setSelected}) => {
     <MenuItem
       active={selected === title}
       onClick={() => setSelected(title)}
+      className={selected === title ? 'active' : ''}
       icon={icon}>
       <Typography className="!text-[16px] !font-Poppins">{title}</Typography>
     </MenuItem>
